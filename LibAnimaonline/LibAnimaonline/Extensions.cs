@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 #region Extensions
 
@@ -45,9 +46,29 @@ namespace System
                 action(listItem);
         }
 
+        public static void ParallelForEach<T>(this IEnumerable<T> list, Action<T> action)
+        {
+            Parallel.ForEach(list, action);
+        }
+
+        public static bool IsNotEmpty<T>(this IEnumerable<T> list)
+        {
+            return list != null && list.Any();
+        }
+
+        public static bool IsEmpty<T>(this IEnumerable<T> list)
+        {
+            return !(list != null && list.Any());
+        }
+
         public static IEnumerable<T> Except<T>(this IEnumerable<T> list, T except)
         {
             return list.Except(new T[] { except });
+        }
+
+        public static IEnumerable<T> ExceptParams<T>(this IEnumerable<T> list, params T[] except)
+        {
+            return list.Except(except);
         }
 
         public static bool IsNullOrEmpty(this IEnumerable<string> list)
@@ -59,6 +80,34 @@ namespace System
 
             return enumerable.GroupBy(string.IsNullOrEmpty).Any(w => w.Key);
         }
+    }
+
+    public static class ActionExtensions
+    {
+        #region Start Task
+
+        public static Task StartTask(this Action action)
+        {
+            return Task.Factory.StartNew(action);
+        }
+
+        public static Task StartTask<T>(this Action<T> action, T state)
+        {
+            var acWrapper = new Action<object>((s) => action((T)s));
+
+            return Task.Factory.StartNew(acWrapper, state);
+        }
+
+        #endregion
+
+        #region Create Task
+
+        public static Task CreateTask(this Action action)
+        {
+            return new Task(action);
+        }
+
+        #endregion
     }
 }
 
