@@ -77,7 +77,7 @@ namespace Animaonline.Threading
         /// <summary>
         /// Blocks the executing thread while awaiting for tasks
         /// </summary>
-        public void Start()
+        public void Block()
         {
             //while _keepAlive is true , and Stop() has not been called
             while (_keepAlive)
@@ -116,7 +116,7 @@ namespace Animaonline.Threading
         /// <summary>
         /// Stops processing the queue of actions and releases the context
         /// </summary>
-        public void Stop()
+        public void Unblock()
         {
             _keepAlive = false;
         }

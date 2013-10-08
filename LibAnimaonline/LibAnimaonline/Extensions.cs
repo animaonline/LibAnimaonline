@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 #region Extensions
@@ -96,6 +97,11 @@ namespace System
             var acWrapper = new Action<object>((s) => action((T)s));
 
             return Task.Factory.StartNew(acWrapper, state);
+        }
+
+        public static Thread CreateThread(this Action action)
+        { 
+            return new Thread(() => action());
         }
 
         #endregion
