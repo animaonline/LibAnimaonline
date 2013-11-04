@@ -15,8 +15,10 @@ namespace Animaonline.ILTools.vCLR
         /// <param name="scope">The scope in which the methods will be executed</param>
         public VirtualCLR(vCLRScope scope = vCLRScope.Method)
         {
+#if RELEASE
             if (scope == vCLRScope.Global)
                 throw new NotImplementedException();
+#endif
 
             this.Scope = scope;
         }
@@ -38,7 +40,7 @@ namespace Animaonline.ILTools.vCLR
         /// <param name="callerContext">A reference to caller's context</param>
         public void ExecuteILMethod(MethodILInfo methodILContext, VCLRExecContext callerContext = null)
         {
-            Console.WriteLine("\r\n--Executing Instructions--\r\n");
+            Console.WriteLine(methodILContext.MethodInfo.Name + "\r\n--Executing Instructions--\r\n");
 
             //TODO: Set locals boundaries
             var vCLRExecContext = new VCLRExecContext(methodILContext);
@@ -272,11 +274,25 @@ namespace Animaonline.ILTools.vCLR
                 case EnumOpCode.Conv_I8:
                     Conv_I8(instruction, vCLRExecContext);
                     break;
+                case EnumOpCode.Ldarga_S:
+                    Ldarga_S1(instruction, vCLRExecContext);
+                    break;
+                case EnumOpCode.Ldind_I1:
+                    Ldind_I1(instruction, vCLRExecContext);
+                    break;
                 default:
                     throw new NotImplementedException(string.Format("OpCode {0} - Not Implemented\r\nDescription: {1}", instruction.OpCodeInfo.Name, OpCodeDescriber.Describe(instruction.OpCode)));
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// Description: Loads a value of type int8 as an int32 onto the evaluation stack indirectly.
+        /// </summary>
+        private void Ldind_I1(ILInstruction instruction, VCLRExecContext vCLRExecContext)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -359,7 +375,11 @@ namespace Animaonline.ILTools.vCLR
         {
             var targetType = (Type)instruction.Operand;
 
-            var ptr = (IntPtr)vCLRExecContext.StackPop();
+            var stackVal = vCLRExecContext.StackPop();
+
+            //var ptr = (IntPtr)stackVal;
+
+            vCLRExecContext.StackPush(stackVal);
         }
 
         /// <summary>
@@ -604,14 +624,29 @@ namespace Animaonline.ILTools.vCLR
             vCLRExecContext.StackPush((object)o1);
         }
 
+        /// <summary>
+        ///  Load an argument address, in short form, onto the evaluation stack.
+        /// </summary>
+        private void Ldarga_S1(ILInstruction instruction, VCLRExecContext vCLRExecContext)
+        {
+            var o1 = vCLRExecContext.Arguments[(byte)instruction.Operand];
+
+            vCLRExecContext.StackPush(o1);
+        }
+
         private void Ldarg_0(ILInstruction instruction, VCLRExecContext vCLRExecContext, VCLRExecContext callerContext)
         {
             if (callerContext != null && callerContext.HasObjectInstance)
                 vCLRExecContext.ObjectInstance = callerContext.ObjectInstance;
 
             //get 'this' instance context if not already done
-            if (!vCLRExecContext.HasObjectInstance)
-                vCLRExecContext.ObjectInstance = Activator.CreateInstance(vCLRExecContext.MethodIL.MethodInfo.DeclaringType);
+            if (!vCLRExecContext.HasObjectInstance && vCLRExecContext.MethodIL.MethodInfo.DeclaringType != null)
+            {
+                if (vCLRExecContext.MethodIL.MethodInfo.DeclaringType.IsAbstract && vCLRExecContext.MethodIL.MethodInfo.DeclaringType.IsSealed) //static class
+                    vCLRExecContext.ObjectInstance = vCLRExecContext.MethodIL.MethodInfo.DeclaringType;
+                else
+                    vCLRExecContext.ObjectInstance = Activator.CreateInstance(vCLRExecContext.MethodIL.MethodInfo.DeclaringType);
+            }
 
             vCLRExecContext.StackPush(vCLRExecContext.ObjectInstance);
         }
@@ -850,7 +885,9 @@ namespace Animaonline.ILTools.vCLR
             object[] invocationParameters = null;
             //The object on which to invoke the method or constructor. If a method is static, this argument is ignored.
             object invocationTargetInstance = null;
-
+            
+            if ((methodInfo.GetMethodImplementationFlags() & MethodImplAttributes.InternalCall) != 0 || methodInfo.GetMethodBody() == null)
+                goto execute;
 
             if (Scope == vCLRScope.Class)
             {
@@ -864,7 +901,8 @@ namespace Animaonline.ILTools.vCLR
                         invocationParameters = new object[methodParameters.Length];
 
                         for (int i = methodParameters.Length - 1; i >= 0; i--)
-                            invocationParameters[i] = vCLRExecContext.StackPop(); //Convert.ChangeType(vCLRExecContext.StackPop(), methodParameters[i].ParameterType);
+                            invocationParameters[i] = vCLRExecContext.StackPop();
+                        //Convert.ChangeType(vCLRExecContext.StackPop(), methodParameters[i].ParameterType);
 
                         vCLRExecContext.Arguments = invocationParameters;
                     }
@@ -879,6 +917,32 @@ namespace Animaonline.ILTools.vCLR
                     return;
                 }
             }
+            else if (Scope == vCLRScope.Global)
+            {
+                //go deeper
+
+                if (methodParameters.Length > 0)
+                {
+                    invocationParameters = new object[methodParameters.Length];
+
+                    for (int i = methodParameters.Length - 1; i >= 0; i--)
+                        invocationParameters[i] = vCLRExecContext.StackPop();
+                    //Convert.ChangeType(vCLRExecContext.StackPop(), methodParameters[i].ParameterType);
+
+                    vCLRExecContext.Arguments = invocationParameters;
+                }
+
+                if (!methodInfo.IsStatic)
+                {
+                    //get invocation instance target
+                    invocationTargetInstance = vCLRExecContext.StackPop();
+                }
+
+                ExecuteILMethod(methodInfo.GetInstructions(), vCLRExecContext);
+                return;
+            }
+
+        execute:
 
             object methodReturnValue;
 
