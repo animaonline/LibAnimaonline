@@ -280,11 +280,22 @@ namespace Animaonline.ILTools.vCLR
                 case EnumOpCode.Ldind_I1:
                     Ldind_I1(instruction, vCLRExecContext);
                     break;
+                case EnumOpCode.Ldc_R8:
+                    Ldc_R8(instruction, vCLRExecContext);
+                    break;
                 default:
                     throw new NotImplementedException(string.Format("OpCode {0} - Not Implemented\r\nDescription: {1}", instruction.OpCodeInfo.Name, OpCodeDescriber.Describe(instruction.OpCode)));
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// Pushes a supplied value of type float64 onto the evaluation stack as type F (float).
+        /// </summary> 
+        private void Ldc_R8(ILInstruction instruction, VCLRExecContext vCLRExecContext)
+        {
+            vCLRExecContext.StackPush((double)instruction.Operand);
         }
 
         /// <summary>
@@ -311,8 +322,9 @@ namespace Animaonline.ILTools.vCLR
         /// </summary>
         private object Ble_S(ILInstruction instruction, VCLRExecContext vCLRExecContext)
         {
-            var i2 = (int)vCLRExecContext.StackPop();
-            var i1 = (int)vCLRExecContext.StackPop();
+            dynamic i2 = vCLRExecContext.StackPop();
+            dynamic i1 = vCLRExecContext.StackPop();
+
             if (i1 < i2 || i1 == i2)
                 return (int)instruction.Operand;
 
@@ -740,8 +752,8 @@ namespace Animaonline.ILTools.vCLR
 
         private object Blt(ILInstruction instruction, VCLRExecContext vCLRExecContext)
         {
-            var i2 = (int)vCLRExecContext.StackPop();
-            var i1 = (int)vCLRExecContext.StackPop();
+            dynamic i2 = vCLRExecContext.StackPop();
+            dynamic i1 = vCLRExecContext.StackPop();
             if (i1 < i2)
                 return (int)instruction.Operand;
 
@@ -751,8 +763,9 @@ namespace Animaonline.ILTools.vCLR
         private object Blt_S(ILInstruction instruction, VCLRExecContext vCLRExecContext)
         {
             //Transfers control to a target instruction (short form) if the first value is less than the second value.
-            var i2 = (int)vCLRExecContext.StackPop();
-            var i1 = (int)vCLRExecContext.StackPop();
+            dynamic i2 = vCLRExecContext.StackPop();
+            dynamic i1 = vCLRExecContext.StackPop();
+
             if (i1 < i2)
                 return (int)instruction.Operand;
 
@@ -885,7 +898,7 @@ namespace Animaonline.ILTools.vCLR
             object[] invocationParameters = null;
             //The object on which to invoke the method or constructor. If a method is static, this argument is ignored.
             object invocationTargetInstance = null;
-            
+
             if ((methodInfo.GetMethodImplementationFlags() & MethodImplAttributes.InternalCall) != 0 || methodInfo.GetMethodBody() == null)
                 goto execute;
 
