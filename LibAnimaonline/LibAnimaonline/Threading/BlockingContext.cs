@@ -4,7 +4,7 @@ using System.Threading;
 namespace Animaonline.Threading
 {
     /// <summary>
-    /// Blocks the executing thread while awaiting for tasks
+    /// Blocks the executing thread (similar to AutoResetEvent) while awaiting for tasks
     /// </summary>
     public class BlockingContext
     {
