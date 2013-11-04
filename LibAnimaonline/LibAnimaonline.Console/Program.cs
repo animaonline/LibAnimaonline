@@ -1,4 +1,5 @@
 ﻿using LibAnimaonline.Console.Tests;
+using LibAnimaonline.Console.Tests.Reflection;
 
 namespace LibAnimaonline.Console
 {
@@ -6,9 +7,13 @@ namespace LibAnimaonline.Console
     {
         static void Main(string[] args)
         {
-            var blockingContextTest = new BlockingContextTest();
+            ITest test;
 
-            blockingContextTest.StartTest();
+            //test= new BlockingContextTest();
+
+            test = new TypeExplorerTest();
+
+            test.StartTest();
         }
     }
 }

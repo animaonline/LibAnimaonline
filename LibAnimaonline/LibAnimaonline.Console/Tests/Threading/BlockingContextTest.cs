@@ -1,9 +1,9 @@
 ﻿using System;
 using Animaonline.Threading;
 
-namespace LibAnimaonline.Console.Tests
+namespace LibAnimaonline.Console.Tests.Threading
 {
-    public class BlockingContextTest
+    public class BlockingContextTest : ITest
     {
         public void StartTest()
         {
