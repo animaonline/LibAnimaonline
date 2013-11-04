@@ -39,8 +39,6 @@ namespace Animaonline.ILTools.vCLR
         public void ExecuteILMethod(MethodILInfo methodILContext, VCLRExecContext callerContext = null)
         {
             Console.WriteLine("\r\n--Executing Instructions--\r\n");
-            foreach (var instruction in methodILContext.Instructions)
-                Console.WriteLine(instruction);
 
             //TODO: Set locals boundaries
             var vCLRExecContext = new VCLRExecContext(methodILContext);
@@ -56,6 +54,8 @@ namespace Animaonline.ILTools.vCLR
             while (position < methodILContext.Instructions.Count)
             {
                 var instruction = methodILContext.Instructions[position++];
+
+                Console.WriteLine("EXECUTING: " + instruction);
 
                 object targetOffset = ExecuteInstruction(instruction, vCLRExecContext, callerContext);
 
@@ -665,7 +665,6 @@ namespace Animaonline.ILTools.vCLR
                     if (i1 != 0)
                         return (int)instruction.Operand;
                 }
-                return (int)instruction.Operand;
             }
 
             return null;

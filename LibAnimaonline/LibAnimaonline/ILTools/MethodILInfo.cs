@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic; 
+﻿using System.Collections.Generic;
 using System.Reflection;
 
 namespace Animaonline.ILTools
@@ -17,10 +17,10 @@ namespace Animaonline.ILTools
 
         #region Public Properties
 
-        public MethodInfo MethodInfo { get; set; }
+        public MethodInfo MethodInfo { get; private set; }
 
-        public List<ILInstruction> Instructions { get; set; }
+        public List<ILInstruction> Instructions { get; private set; }
 
-        #endregion 
+        #endregion
     }
 }

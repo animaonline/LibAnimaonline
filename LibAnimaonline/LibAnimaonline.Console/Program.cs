@@ -1,4 +1,5 @@
 ﻿using LibAnimaonline.Console.Tests;
+using LibAnimaonline.Console.Tests.ILTools;
 using LibAnimaonline.Console.Tests.Reflection;
 
 namespace LibAnimaonline.Console
@@ -11,7 +12,9 @@ namespace LibAnimaonline.Console
 
             //test= new BlockingContextTest();
 
-            test = new TypeExplorerTest();
+            //test = new TypeExplorerTest();
+
+            test = new ILToolsTest();
 
             test.StartTest();
         }
