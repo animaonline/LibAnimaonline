@@ -1,7 +1,7 @@
 ﻿using System;
 using Animaonline.Threading;
 
-namespace LibAnimaonline.Console
+namespace LibAnimaonline.Console.Tests
 {
     public class BlockingContextTest
     {
