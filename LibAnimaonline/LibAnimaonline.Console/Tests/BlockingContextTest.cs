@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading;
 using Animaonline.Threading;
 
 namespace LibAnimaonline.Console
@@ -41,6 +36,9 @@ namespace LibAnimaonline.Console
                 {
                     case "exit":
                         keepAlive = false;
+                        break;
+                    case "kill3s":
+                        blockingContext.ScheduleUnblock(3000);
                         break;
                     default:
                         System.Console.WriteLine("Unknown command '{0}'".FormatThis(cin));

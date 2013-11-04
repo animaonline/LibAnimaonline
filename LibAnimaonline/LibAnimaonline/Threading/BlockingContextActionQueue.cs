@@ -7,18 +7,16 @@ namespace Animaonline.Threading
     {
         #region Public Constructors
 
-        public BlockingContextActionQueue() { }
-
-        public BlockingContextActionQueue(Action onEnqueue)
+        public BlockingContextActionQueue(BlockingContext context)
         {
-            _onEnqueue = onEnqueue;
+            this.context = context;
         }
 
         #endregion
 
         #region Private Fields
 
-        private readonly Action _onEnqueue;
+        private readonly BlockingContext context;
 
         #endregion
 
@@ -28,8 +26,8 @@ namespace Animaonline.Threading
         {
             base.Enqueue(item);
 
-            if (_onEnqueue != null)
-                _onEnqueue();
+            if (context != null)
+                context.OnEnqueue();
         }
 
         #endregion

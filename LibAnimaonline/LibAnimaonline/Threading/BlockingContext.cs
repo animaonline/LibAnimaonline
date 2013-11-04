@@ -13,7 +13,7 @@ namespace Animaonline.Threading
         public BlockingContext()
         {
             this._keepAlive = true;
-            _actions = new BlockingContextActionQueue(OnEnqueue);
+            _actions = new BlockingContextActionQueue(this);
         }
 
         #endregion
@@ -44,6 +44,8 @@ namespace Animaonline.Threading
         /// </summary>
         private BlockingContextActionQueue _actions;
 
+        private Timer _unblockTimer;
+
         #endregion
 
         #region Public Properties
@@ -60,12 +62,27 @@ namespace Animaonline.Threading
 
         #region Private Methods
 
+        private void scheduleUnblockCallback(object state)
+        {
+            if (_unblockTimer != null)
+            {
+                _unblockTimer.Dispose();
+                _unblockTimer = null;
+            }
+
+            this.Unblock();
+        }
+
+        #endregion
+
+        #region Internal Methods
+
         /// <summary>
         /// Is called when a new item is added to the action queue
         /// </summary>
-        private void OnEnqueue()
+        internal void OnEnqueue()
         {
-            //Wake up the executing and carry on with the execution
+            //Wake up the Block() loop and carry on with the execution
             lock (sync_lock)
                 Monitor.Pulse(sync_lock);
         }
@@ -79,6 +96,8 @@ namespace Animaonline.Threading
         /// </summary>
         public void Block()
         {
+            _keepAlive = true;
+
             //while _keepAlive is true , and Stop() has not been called
             while (_keepAlive)
                 //enter the monitor
@@ -101,7 +120,7 @@ namespace Animaonline.Threading
                             action();
                     }
 
-                    //Stop() was called, exit flow
+                    //if Stop() was called, exit flow
                     if (!_keepAlive)
                         break;
 
@@ -121,6 +140,18 @@ namespace Animaonline.Threading
                 _keepAlive = false;
                 Monitor.Pulse(sync_lock);
             }
+        }
+
+        /// <summary>
+        /// Calls Unblock after the given amount of milliseconds has passed
+        /// </summary>
+        /// <param name="milliseconds">Timeout</param>
+        public void ScheduleUnblock(int milliseconds)
+        {
+            if (milliseconds < 1)
+                throw new ArgumentException("Invalid time");
+
+            this._unblockTimer = new Timer(scheduleUnblockCallback, null, milliseconds, Timeout.Infinite);
         }
 
         /// <summary>
