@@ -45,10 +45,10 @@
     <Compile Include="ILTools\Helpers\EnumOpCode.cs" />
     <Compile Include="ILTools\Helpers\OpCodeDescriber.cs" />
     <Compile Include="ILTools\Helpers\OpCodesTable.cs" />
-    <Compile Include="ILTools\ILTools\ILInstruction.cs" />
-    <Compile Include="ILTools\ILTools\ILTools.cs" />
-    <Compile Include="ILTools\ILTools\MethodILInfo.cs" />
-    <Compile Include="ILTools\ILTools\OperandReader.cs" />
+    <Compile Include="ILTools\ILInstruction.cs" />
+    <Compile Include="ILTools\ILTools.cs" />
+    <Compile Include="ILTools\MethodILInfo.cs" />
+    <Compile Include="ILTools\OperandReader.cs" />
     <Compile Include="ILTools\vCLR\VCLRExecContext.cs" />
     <Compile Include="ILTools\vCLR\vCLRScope.cs" />
     <Compile Include="ILTools\vCLR\VirtualCLR.cs" />
