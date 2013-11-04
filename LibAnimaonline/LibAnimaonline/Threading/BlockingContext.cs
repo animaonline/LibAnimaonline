@@ -81,7 +81,6 @@ namespace Animaonline.Threading
         {
             //while _keepAlive is true , and Stop() has not been called
             while (_keepAlive)
-            {
                 //enter the monitor
                 lock (sync_lock)
                 {
@@ -110,7 +109,6 @@ namespace Animaonline.Threading
                     //block the thread
                     Monitor.Wait(sync_lock);
                 }
-            }
         }
 
         /// <summary>
@@ -118,7 +116,11 @@ namespace Animaonline.Threading
         /// </summary>
         public void Unblock()
         {
-            _keepAlive = false;
+            lock (sync_lock)
+            {
+                _keepAlive = false;
+                Monitor.Pulse(sync_lock);
+            }
         }
 
         /// <summary>

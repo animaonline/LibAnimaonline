@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibAnimaonline", "LibAnimaonline\LibAnimaonline.csproj", "{91F3781C-EA9E-4210-A6C0-DA1A7A3E73E9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibAnimaonline.Console", "LibAnimaonline.Console\LibAnimaonline.Console.csproj", "{5662CEB1-322B-48CE-B9BE-B7C8B875FB74}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{91F3781C-EA9E-4210-A6C0-DA1A7A3E73E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{91F3781C-EA9E-4210-A6C0-DA1A7A3E73E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{91F3781C-EA9E-4210-A6C0-DA1A7A3E73E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5662CEB1-322B-48CE-B9BE-B7C8B875FB74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5662CEB1-322B-48CE-B9BE-B7C8B875FB74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5662CEB1-322B-48CE-B9BE-B7C8B875FB74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5662CEB1-322B-48CE-B9BE-B7C8B875FB74}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
