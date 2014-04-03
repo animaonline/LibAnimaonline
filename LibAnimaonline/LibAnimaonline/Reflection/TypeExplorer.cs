@@ -12,6 +12,14 @@ namespace Animaonline.Reflection
         #region Public Static Methods
 
         /// <summary>
+        /// Gets a list of loaded types in the current AppDomain
+        /// </summary>
+        public static List<Type> GetLoadedTypes()
+        {
+            return _getLoadedTypes(AppDomain.CurrentDomain);
+        }
+
+        /// <summary>
         /// Gets a list of loaded types in the specified AppDomain
         /// </summary>
         /// <param name="appDomain"></param>
