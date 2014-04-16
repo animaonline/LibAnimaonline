@@ -1,0 +1,7 @@
+C:\Users\Roman\Documents\GitHub\LibAnimaonline\LibAnimaonline\LibAnimaonline.Console\bin\Debug\LibAnimaonline.Console.exe
+C:\Users\Roman\Documents\GitHub\LibAnimaonline\LibAnimaonline\LibAnimaonline.Console\bin\Debug\LibAnimaonline.Console.pdb
+C:\Users\Roman\Documents\GitHub\LibAnimaonline\LibAnimaonline\LibAnimaonline.Console\bin\Debug\LibAnimaonline.dll
+C:\Users\Roman\Documents\GitHub\LibAnimaonline\LibAnimaonline\LibAnimaonline.Console\bin\Debug\LibAnimaonline.pdb
+C:\Users\Roman\Documents\GitHub\LibAnimaonline\LibAnimaonline\LibAnimaonline.Console\obj\Debug\LibAnimaonline.Console.csprojResolveAssemblyReference.cache
+C:\Users\Roman\Documents\GitHub\LibAnimaonline\LibAnimaonline\LibAnimaonline.Console\obj\Debug\LibAnimaonline.Console.exe
+C:\Users\Roman\Documents\GitHub\LibAnimaonline\LibAnimaonline\LibAnimaonline.Console\obj\Debug\LibAnimaonline.Console.pdb
