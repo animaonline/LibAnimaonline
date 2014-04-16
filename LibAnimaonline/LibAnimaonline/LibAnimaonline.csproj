@@ -41,7 +41,9 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Extensions.cs" />
+    <Compile Include="Extensions\ActionExtensions.cs" />
+    <Compile Include="Extensions\ObjectExtensions.cs" />
+    <Compile Include="Extensions\IEnumerableExtensions.cs" />
     <Compile Include="ILTools\Extensions\MethodInfoExtensions.cs" />
     <Compile Include="ILTools\Helpers\EnumOpCode.cs" />
     <Compile Include="ILTools\Helpers\OpCodeDescriber.cs" />
@@ -54,10 +56,12 @@
     <Compile Include="ILTools\vCLR\vCLRScope.cs" />
     <Compile Include="ILTools\vCLR\VirtualCLR.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reflection\ChangeWatcher.cs" />
     <Compile Include="Reflection\TypeExplorer.cs" />
     <Compile Include="Events\SmartEvent.cs" />
     <Compile Include="Events\SmartEventArgs.cs" />
     <Compile Include="Events\SmartEventSubscriber.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Threading\BlockingContext.cs" />
     <Compile Include="Threading\BlockingContextActionQueue.cs" />
     <Compile Include="Utils\ConsoleBuffer.cs" />
