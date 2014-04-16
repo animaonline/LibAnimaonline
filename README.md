@@ -5,6 +5,8 @@ LibAnimaonline
 
 A set of useful cross platform helper classes to use with .NET, written in C#
 
+LibAnimaonline @ NUGET https://www.nuget.org/packages/LibAnimaonline/
+
 Project Structure
 -----------
 
