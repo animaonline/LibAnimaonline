@@ -1,3 +1,20 @@
+/*
+LibAnimaonline - A set of useful cross platform helper classes to use with .NET, written in C#
+Copyright (C) 2007-2014  Roman Alifanov - animaonline@gmail.com - http://www.animaonline.com
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see http://www.gnu.org/licenses/
+ */
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,12 +29,12 @@ namespace Animaonline.Utils
 
         public LogProvider(LogReceiver receiver)
         {
-            this.Receiver = receiver;
+            Receiver = receiver;
         }
 
         public LogProvider(Action<LogEntry> onReceive)
         {
-            this.Receiver = new LogReceiver(onReceive);
+            Receiver = new LogReceiver(onReceive);
         }
 
         #endregion
@@ -40,7 +57,7 @@ namespace Animaonline.Utils
 
             logEntry.StackTrace = capturedStackTrace;
 
-            this.Log(logEntry);
+            Log(logEntry);
         }
 
         #endregion
@@ -49,14 +66,14 @@ namespace Animaonline.Utils
 
         public void Log(LogEntry logEntry)
         {
-            this.Receiver.SignalReceive(logEntry);
+            Receiver.SignalReceive(logEntry);
         }
 
         public void Log(LogEntryType entryType, string value, string tag = null, Exception exception = null)
         {
             var logEntry = new LogEntry(entryType, value, tag, exception);
 
-            this.Receiver.SignalReceive(logEntry);
+            Receiver.SignalReceive(logEntry);
         }
 
         #endregion
@@ -65,12 +82,12 @@ namespace Animaonline.Utils
 
         public void Debug(LogEntry logEntry)
         {
-            this.Log(logEntry);
+            Log(logEntry);
         }
 
         public void Debug(string value, string tag = null, Exception exception = null)
         {
-            this.Log(LogEntryType.DEBUG, value, tag, exception);
+            Log(LogEntryType.DEBUG, value, tag, exception);
         }
 
         #endregion
@@ -79,12 +96,12 @@ namespace Animaonline.Utils
 
         public void Info(LogEntry logEntry)
         {
-            this.Log(logEntry);
+            Log(logEntry);
         }
 
         public void Info(string value, string tag = null, Exception exception = null)
         {
-            this.Log(LogEntryType.INFO, value, tag, exception);
+            Log(LogEntryType.INFO, value, tag, exception);
         }
 
         #endregion
@@ -93,12 +110,12 @@ namespace Animaonline.Utils
 
         public void Warn(LogEntry logEntry)
         {
-            this.Log(logEntry);
+            Log(logEntry);
         }
 
         public void Warn(string value, string tag = null, Exception exception = null)
         {
-            this.Log(LogEntryType.WARN, value, tag, exception);
+            Log(LogEntryType.WARN, value, tag, exception);
         }
 
         #endregion
@@ -107,12 +124,12 @@ namespace Animaonline.Utils
 
         public void Error(LogEntry logEntry)
         {
-            this.Log(logEntry);
+            Log(logEntry);
         }
 
         public void Error(string value, string tag = null, Exception exception = null)
         {
-            this.Log(LogEntryType.ERROR, value, tag, exception);
+            Log(LogEntryType.ERROR, value, tag, exception);
         }
 
         #endregion
@@ -121,12 +138,12 @@ namespace Animaonline.Utils
 
         public void Fatal(LogEntry logEntry)
         {
-            this.Log(logEntry);
+            Log(logEntry);
         }
 
         public void Fatal(string value, string tag = null, Exception exception = null)
         {
-            this.Log(LogEntryType.DEBUG, value, tag, exception);
+            Log(LogEntryType.DEBUG, value, tag, exception);
         }
 
         #endregion

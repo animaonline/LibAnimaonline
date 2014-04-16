@@ -44,13 +44,13 @@
     <Compile Include="Extensions\ActionExtensions.cs" />
     <Compile Include="Extensions\ObjectExtensions.cs" />
     <Compile Include="Extensions\IEnumerableExtensions.cs" />
+    <Compile Include="ILTools\EnumOpCode.cs" />
     <Compile Include="ILTools\Extensions\MethodInfoExtensions.cs" />
-    <Compile Include="ILTools\Helpers\EnumOpCode.cs" />
-    <Compile Include="ILTools\Helpers\OpCodeDescriber.cs" />
-    <Compile Include="ILTools\Helpers\OpCodesTable.cs" />
     <Compile Include="ILTools\ILInstruction.cs" />
     <Compile Include="ILTools\ILTools.cs" />
     <Compile Include="ILTools\MethodILInfo.cs" />
+    <Compile Include="ILTools\OpCodeDescriber.cs" />
+    <Compile Include="ILTools\OpCodesTable.cs" />
     <Compile Include="ILTools\OperandReader.cs" />
     <Compile Include="ILTools\vCLR\VCLRExecContext.cs" />
     <Compile Include="ILTools\vCLR\vCLRScope.cs" />

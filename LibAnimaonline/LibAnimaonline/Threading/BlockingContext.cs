@@ -1,4 +1,21 @@
-﻿using System;
+﻿/*
+LibAnimaonline - A set of useful cross platform helper classes to use with .NET, written in C#
+Copyright (C) 2007-2014  Roman Alifanov - animaonline@gmail.com - http://www.animaonline.com
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see http://www.gnu.org/licenses/
+ */
+using System;
 using System.Threading;
 
 namespace Animaonline.Threading
@@ -12,7 +29,7 @@ namespace Animaonline.Threading
 
         public BlockingContext()
         {
-            this._keepAlive = true;
+            _keepAlive = true;
             _actions = new BlockingContextActionQueue(this);
         }
 
@@ -32,7 +49,7 @@ namespace Animaonline.Threading
         /// <summary>
         /// Synchronization lock
         /// </summary>
-        private readonly object sync_lock = new object();
+        private readonly object _syncLock = new object();
 
         /// <summary>
         /// Indicates whether the blocking context is alive
@@ -62,7 +79,7 @@ namespace Animaonline.Threading
 
         #region Private Methods
 
-        private void scheduleUnblockCallback(object state)
+        private void ScheduleUnblockCallback(object state)
         {
             if (_unblockTimer != null)
             {
@@ -70,7 +87,7 @@ namespace Animaonline.Threading
                 _unblockTimer = null;
             }
 
-            this.Unblock();
+            Unblock();
         }
 
         #endregion
@@ -83,8 +100,8 @@ namespace Animaonline.Threading
         internal void OnEnqueue()
         {
             //Wake up the Block() loop and carry on with the execution
-            lock (sync_lock)
-                Monitor.Pulse(sync_lock);
+            lock (_syncLock)
+                Monitor.Pulse(_syncLock);
         }
 
         #endregion
@@ -101,7 +118,7 @@ namespace Animaonline.Threading
             //while _keepAlive is true , and Stop() has not been called
             while (_keepAlive)
                 //enter the monitor
-                lock (sync_lock)
+                lock (_syncLock)
                 {
                     //process all queued actions
                     while (_actions.Count > 0)
@@ -126,7 +143,7 @@ namespace Animaonline.Threading
 
                     //all actions have been executed, the action queue is empty
                     //block the thread
-                    Monitor.Wait(sync_lock);
+                    Monitor.Wait(_syncLock);
                 }
         }
 
@@ -135,10 +152,10 @@ namespace Animaonline.Threading
         /// </summary>
         public void Unblock()
         {
-            lock (sync_lock)
+            lock (_syncLock)
             {
                 _keepAlive = false;
-                Monitor.Pulse(sync_lock);
+                Monitor.Pulse(_syncLock);
             }
         }
 
@@ -151,7 +168,7 @@ namespace Animaonline.Threading
             if (milliseconds < 1)
                 throw new ArgumentException("Invalid time");
 
-            this._unblockTimer = new Timer(scheduleUnblockCallback, null, milliseconds, Timeout.Infinite);
+            _unblockTimer = new Timer(ScheduleUnblockCallback, null, milliseconds, Timeout.Infinite);
         }
 
         /// <summary>

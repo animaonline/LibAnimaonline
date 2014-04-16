@@ -1,4 +1,21 @@
-﻿using System;
+﻿/*
+LibAnimaonline - A set of useful cross platform helper classes to use with .NET, written in C#
+Copyright (C) 2007-2014  Roman Alifanov - animaonline@gmail.com - http://www.animaonline.com
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see http://www.gnu.org/licenses/
+ */
+using System;
 using System.Text;
 
 namespace Animaonline.Utils
@@ -13,21 +30,21 @@ namespace Animaonline.Utils
 
         private StringBuilder _buffer;
         private readonly int _maxLines;
-        private int _lineCount = 0;
-        private readonly object sync_lock = new object();
+        private int _lineCount;
+        private readonly object _syncLock = new object();
 
         public string Buffer
         {
             get
             {
                 _maintainConstraints();
-                return this._buffer.ToString();
+                return _buffer.ToString();
             }
         }
 
         public void Clear()
         {
-            lock (sync_lock)
+            lock (_syncLock)
             {
                 _buffer.Clear();
                 _lineCount = 0;
@@ -36,7 +53,7 @@ namespace Animaonline.Utils
 
         public void Write(string value)
         {
-            lock (sync_lock)
+            lock (_syncLock)
             {
                 _maintainConstraints();
 
@@ -48,7 +65,7 @@ namespace Animaonline.Utils
 
         public void WriteLine(string line)
         {
-            lock (sync_lock)
+            lock (_syncLock)
             {
                 _maintainConstraints();
 
@@ -60,7 +77,7 @@ namespace Animaonline.Utils
 
         public void WriteLine()
         {
-            lock (sync_lock)
+            lock (_syncLock)
             {
                 _maintainConstraints();
 
@@ -72,7 +89,7 @@ namespace Animaonline.Utils
 
         private void _maintainConstraints()
         {
-            lock (sync_lock)
+            lock (_syncLock)
             {
                 if (_lineCount > _maxLines)
                 {
