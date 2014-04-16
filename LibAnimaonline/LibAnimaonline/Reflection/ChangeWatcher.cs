@@ -207,7 +207,7 @@ namespace Animaonline.Reflection
         /// <summary>
         /// Indicates whether this object has changed or not since AcceptChanges() was called.
         /// </summary>
-        public static bool HasChanges(this object obj)
+        public static bool HasChanges(object obj)
         {
             lock (obj)
             {
@@ -220,7 +220,7 @@ namespace Animaonline.Reflection
         /// <summary>
         ///  Gets a list of all public properties that were changed since AcceptChanges() was called.
         /// </summary>
-        public static ChangedPropertiesCollection GetChangedProperties(this object obj, Type requiredAttribute = null)
+        public static ChangedPropertiesCollection GetChangedProperties(object obj, Type requiredAttribute = null)
         {
             lock (obj)
             {
