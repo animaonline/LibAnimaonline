@@ -87,6 +87,9 @@ namespace Animaonline.Reflection
                 get { return Property != null && _owner != null ? Property.GetValue(_owner, null) : null; }
                 set
                 {
+                    if (!Property.CanWrite)
+                        return;
+
                     Property.SetValue(_owner, value, null);
                     CurrentValue = value;
                 }
@@ -154,7 +157,7 @@ namespace Animaonline.Reflection
         /// Commits all the changes made to public properties in this object since the last time AcceptChanges() was called.
         /// </summary>
         public static void AcceptChanges(object obj)
-        { 
+        {
             lock (obj)
             {
                 if (!ChangeCache.ContainsKey(obj)) //First time AcceptChanges
@@ -174,6 +177,10 @@ namespace Animaonline.Reflection
                     {
                         try
                         {
+                            //ignore properties without getters
+                            if (!propertyInfo.CanRead)
+                                continue;
+
                             var indexParams = propertyInfo.GetIndexParameters();
 
                             if (indexParams.Length > 0)

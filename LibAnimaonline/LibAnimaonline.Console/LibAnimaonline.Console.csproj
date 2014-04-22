@@ -34,11 +34,13 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Tests\Events\SmartEventTest.cs" />
     <Compile Include="Tests\ILTools\ILToolsTest.cs" />
+    <Compile Include="Tests\Reflection\ChangeWatcherTest.cs" />
     <Compile Include="Tests\Threading\BlockingContextTest.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

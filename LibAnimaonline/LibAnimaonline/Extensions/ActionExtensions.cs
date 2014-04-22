@@ -15,42 +15,40 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see http://www.gnu.org/licenses/
  */
+
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-// ReSharper disable once CheckNamespace
-namespace System
+public static class ActionExtensions
 {
-    public static class ActionExtensions
+    #region Start Task
+
+    public static Task StartTask(this Action action)
     {
-        #region Start Task
-
-        public static Task StartTask(this Action action)
-        {
-            return Task.Factory.StartNew(action);
-        }
-
-        public static Task StartTask<T>(this Action<T> action, T state)
-        {
-            var acWrapper = new Action<object>(s => action((T)s));
-
-            return Task.Factory.StartNew(acWrapper, state);
-        }
-
-        public static Thread CreateThread(this Action action)
-        { 
-            return new Thread(() => action());
-        }
-
-        #endregion
-
-        #region Create Task
-
-        public static Task CreateTask(this Action action)
-        {
-            return new Task(action);
-        }
-
-        #endregion
+        return Task.Factory.StartNew(action);
     }
+
+    public static Task StartTask<T>(this Action<T> action, T state)
+    {
+        var acWrapper = new Action<object>(s => action((T)s));
+
+        return Task.Factory.StartNew(acWrapper, state);
+    }
+
+    public static Thread CreateThread(this Action action)
+    {
+        return new Thread(() => action());
+    }
+
+    #endregion
+
+    #region Create Task
+
+    public static Task CreateTask(this Action action)
+    {
+        return new Task(action);
+    }
+
+    #endregion
 }

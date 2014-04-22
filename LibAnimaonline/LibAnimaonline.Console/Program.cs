@@ -18,8 +18,12 @@ along with this program.  If not, see http://www.gnu.org/licenses/
 
 using System;
 using System.Net;
+using System.Security.Cryptography;
+using System.Text;
+using System.Web;
 using LibAnimaonline.Console.Tests;
 using LibAnimaonline.Console.Tests.Events;
+using LibAnimaonline.Console.Tests.Reflection;
 
 namespace LibAnimaonline.Console
 {
@@ -35,9 +39,11 @@ namespace LibAnimaonline.Console
 
             //test = new ILToolsTest();
 
-            test = new SmartEventTest();
+            //test = new SmartEventTest();
 
-            test.StartTest(); 
+            test = new ChangeWatcherTest();
+
+            test.StartTest();
         }
     }
 }

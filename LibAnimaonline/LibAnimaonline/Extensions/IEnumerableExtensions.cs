@@ -15,54 +15,53 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see http://www.gnu.org/licenses/
  */
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-// ReSharper disable once CheckNamespace
-namespace System
+
+public static class EnumerableExtensions
 {
-    public static class EnumerableExtensions
+    public static void ForEach<T>(this IEnumerable<T> list, Action<T> action)
     {
-        public static void ForEach<T>(this IEnumerable<T> list, Action<T> action)
-        {
-            foreach (var listItem in list)
-                action(listItem);
-        }
+        foreach (var listItem in list)
+            action(listItem);
+    }
 
-        public static void ParallelForEach<T>(this IEnumerable<T> list, Action<T> action)
-        {
-            Parallel.ForEach(list, action);
-        }
+    public static void ParallelForEach<T>(this IEnumerable<T> list, Action<T> action)
+    {
+        Parallel.ForEach(list, action);
+    }
 
-        public static bool IsNotEmpty<T>(this IEnumerable<T> list)
-        {
-            return list != null && list.Any();
-        }
+    public static bool IsNotEmpty<T>(this IEnumerable<T> list)
+    {
+        return list != null && list.Any();
+    }
 
-        public static bool IsEmpty<T>(this IEnumerable<T> list)
-        {
-            return !(list != null && list.Any());
-        }
+    public static bool IsEmpty<T>(this IEnumerable<T> list)
+    {
+        return !(list != null && list.Any());
+    }
 
-        public static IEnumerable<T> Except<T>(this IEnumerable<T> list, T except)
-        {
-            return list.Except(new[] { except });
-        }
+    public static IEnumerable<T> Except<T>(this IEnumerable<T> list, T except)
+    {
+        return list.Except(new[] { except });
+    }
 
-        public static IEnumerable<T> ExceptParams<T>(this IEnumerable<T> list, params T[] except)
-        {
-            return list.Except(except);
-        }
+    public static IEnumerable<T> ExceptParams<T>(this IEnumerable<T> list, params T[] except)
+    {
+        return list.Except(except);
+    }
 
-        public static bool IsNullOrEmpty(this IEnumerable<string> list)
-        {
-            var enumerable = list as string[] ?? list.ToArray();
+    public static bool IsNullOrEmpty(this IEnumerable<string> list)
+    {
+        var enumerable = list as string[] ?? list.ToArray();
 
-            if (list == null || !enumerable.Any())
-                return false;
+        if (list == null || !enumerable.Any())
+            return false;
 
-            return enumerable.GroupBy(string.IsNullOrEmpty).Any(w => w.Key);
-        }
+        return enumerable.GroupBy(string.IsNullOrEmpty).Any(w => w.Key);
     }
 }
