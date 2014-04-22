@@ -15,6 +15,9 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see http://www.gnu.org/licenses/
  */
+
+using System;
+using System.Net;
 using LibAnimaonline.Console.Tests;
 using LibAnimaonline.Console.Tests.Events;
 
@@ -34,7 +37,7 @@ namespace LibAnimaonline.Console
 
             test = new SmartEventTest();
 
-            test.StartTest();
+            test.StartTest(); 
         }
     }
 }
