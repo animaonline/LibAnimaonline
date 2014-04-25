@@ -22,6 +22,10 @@ namespace LibAnimaonline.Console.Tests.Reflection
             System.Console.WriteLine("Following properties have changed");
 
             changedProperties.ForEach(p => p.ToConsole());
+
+            var form = new ChangeWatcherTestForm();
+
+            form.ShowDialog();
         }
 
         public class TestTarget

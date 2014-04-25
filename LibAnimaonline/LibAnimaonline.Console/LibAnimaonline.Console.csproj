@@ -34,10 +34,19 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChangeWatcherTestForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChangeWatcherTestForm.Designer.cs">
+      <DependentUpon>ChangeWatcherTestForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Tests\Events\SmartEventTest.cs" />
     <Compile Include="Tests\ILTools\ILToolsTest.cs" />
     <Compile Include="Tests\Reflection\ChangeWatcherTest.cs" />
@@ -52,6 +61,11 @@
       <Project>{91F3781C-EA9E-4210-A6C0-DA1A7A3E73E9}</Project>
       <Name>LibAnimaonline</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ChangeWatcherTestForm.resx">
+      <DependentUpon>ChangeWatcherTestForm.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

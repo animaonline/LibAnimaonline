@@ -100,7 +100,7 @@ namespace Animaonline.Reflection
                             targetValue = value;
 
                         Property.SetValue(_owner, targetValue, null);
-                        PreviousValue = CurrentValue;
+                        //PreviousValue = CurrentValue;
                         CurrentValue = value;
                     }
                     catch (Exception e)
@@ -159,6 +159,14 @@ namespace Animaonline.Reflection
                                     select prop).FirstOrDefault();
 
                     return property;
+                }
+            }
+
+            public void RestoreAll()
+            {
+                foreach (var item in this)
+                {
+                    item.RestorePrevious();
                 }
             }
         }
