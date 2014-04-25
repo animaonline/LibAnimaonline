@@ -43,5 +43,15 @@ public static class StringExtensions
     public static bool IsNotNullOrWhiteSpace(this string value)
     {
         return !string.IsNullOrWhiteSpace(value);
-    } 
+    }
+
+    public static void ToConsole(this string value)
+    {
+        System.Console.WriteLine(value);
+    }
+
+    public static void ToConsole(this string value, params object[] args)
+    {
+        System.Console.WriteLine(value, args);
+    }
 }
