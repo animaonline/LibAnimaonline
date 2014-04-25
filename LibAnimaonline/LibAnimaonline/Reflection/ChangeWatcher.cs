@@ -87,11 +87,31 @@ namespace Animaonline.Reflection
                 get { return Property != null && _owner != null ? Property.GetValue(_owner, null) : null; }
                 set
                 {
-                    if (!Property.CanWrite)
-                        return;
+                    try
+                    {
+                        if (CurrentValue == value)
+                            return;
 
-                    Property.SetValue(_owner, value, null);
-                    CurrentValue = value;
+                        dynamic targetValue;
+
+                        if (value.GetType() != Property.PropertyType)
+                            targetValue = Convert.ChangeType(value, Property.PropertyType);
+                        else
+                            targetValue = value;
+
+                        Property.SetValue(_owner, targetValue, null);
+                        PreviousValue = CurrentValue;
+                        CurrentValue = value;
+                    }
+                    catch (Exception e)
+                    {
+                        if (e is OverflowException ||
+                            e is FormatException ||
+                            e is ArgumentException ||
+                            e is InvalidCastException)
+                            return;
+                        throw;
+                    }
                 }
             }
 

@@ -730,6 +730,8 @@ namespace Animaonline.ILTools.vCLR
                     if (i1 != 0)
                         return (int)instruction.Operand;
                 }
+
+                return (int)instruction.Operand;
             }
 
             return null;
@@ -982,7 +984,18 @@ namespace Animaonline.ILTools.vCLR
                 invocationParameters = new object[methodParameters.Length];
 
                 for (int i = methodParameters.Length - 1; i >= 0; i--)
-                    invocationParameters[i] = vCLRExecContext.StackPop(); //Convert.ChangeType(vCLRExecContext.StackPop(), methodParameters[i].ParameterType);
+                {
+                    var stackVal = vCLRExecContext.StackPop();
+
+                    dynamic targetVal;
+
+                    if (methodParameters[i].ParameterType == typeof(object))
+                        targetVal = stackVal;
+                    else
+                        targetVal = Convert.ChangeType(stackVal, methodParameters[i].ParameterType);
+                    
+                    invocationParameters[i] = targetVal;
+                }
             }
 
             if (!methodInfo.IsStatic)

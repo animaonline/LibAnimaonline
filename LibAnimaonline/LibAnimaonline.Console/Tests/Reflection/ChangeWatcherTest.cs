@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
+﻿using System.ComponentModel;
 
 namespace LibAnimaonline.Console.Tests.Reflection
 {
@@ -22,7 +18,10 @@ namespace LibAnimaonline.Console.Tests.Reflection
             testTarget.Set(44, 138, 207);
 
             var changedProperties = testTarget.GetChangedProperties();
-            changedProperties["B"].DirectValue = true;
+
+            System.Console.WriteLine("Following properties have changed");
+
+            changedProperties.ForEach(p => p.ToConsole());
         }
 
         public class TestTarget
@@ -42,9 +41,9 @@ namespace LibAnimaonline.Console.Tests.Reflection
 
             public void Set(byte r, byte g, byte b)
             {
-                this.R = r;
-                this.G = g;
-                this.B = b;
+                R = r;
+                G = g;
+                B = b;
             }
         }
     }

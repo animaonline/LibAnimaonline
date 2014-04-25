@@ -46,5 +46,14 @@ public static class ObjectExtensions
     public static ChangeWatcher.ChangedPropertiesCollection GetChangedProperties(this object o, Type requiredAttribute = null)
     {
         return ChangeWatcher.GetChangedProperties(o);
-    } 
+    }
+
+    public static void ToConsole(this object o)
+    {
+        Console.WriteLine(o);
+    }
+    public static void ToConsole(this object o, params object[] args)
+    {
+        Console.WriteLine(o.ToString(), args);
+    }
 }

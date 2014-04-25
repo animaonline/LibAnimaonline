@@ -18,10 +18,14 @@ along with this program.  If not, see http://www.gnu.org/licenses/
 
 using System;
 using System.ComponentModel;
+using System.IO;
 using System.Net;
+using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 using System.Web;
+using Animaonline.ILTools.vCLR;
 using Animaonline.Threading;
 using LibAnimaonline.Console.Tests;
 using LibAnimaonline.Console.Tests.Events;
@@ -36,7 +40,7 @@ namespace LibAnimaonline.Console
         {
             ITest test;
 
-            test= new BlockingContextTest();
+            //test= new BlockingContextTest();
 
             //test = new TypeExplorerTest();
 
@@ -44,7 +48,7 @@ namespace LibAnimaonline.Console
 
             //test = new SmartEventTest();
 
-            //test = new ChangeWatcherTest();
+            test = new ChangeWatcherTest();
 
             test.StartTest();
         }
