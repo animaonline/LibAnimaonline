@@ -20,6 +20,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Microsoft.CSharp.RuntimeBinder;
 
 namespace Animaonline.Reflection
 {
@@ -108,7 +109,8 @@ namespace Animaonline.Reflection
                         if (e is OverflowException ||
                             e is FormatException ||
                             e is ArgumentException ||
-                            e is InvalidCastException)
+                            e is InvalidCastException ||
+                            e is RuntimeBinderException)
                             return;
                         throw;
                     }
@@ -147,6 +149,13 @@ namespace Animaonline.Reflection
         /// </summary>
         public class ChangedPropertiesCollection : List<ChangeWatchProperty>
         {
+            public ChangedPropertiesCollection(Type targetType)
+            {
+                TargetType = targetType;
+            }
+
+            public Type TargetType { get; set; }
+
             /// <summary>
             /// Gets a property by name
             /// </summary>
@@ -165,9 +174,7 @@ namespace Animaonline.Reflection
             public void RestoreAll()
             {
                 foreach (var item in this)
-                {
                     item.RestorePrevious();
-                }
             }
         }
 
@@ -266,7 +273,7 @@ namespace Animaonline.Reflection
                 var changesCache = ChangeCache[obj];
 
                 //A list of changed properties
-                var changes = new ChangedPropertiesCollection();
+                var changes = new ChangedPropertiesCollection(obj.GetType());
 
                 foreach (var propertyInfo in changesCache.Keys)
                 {

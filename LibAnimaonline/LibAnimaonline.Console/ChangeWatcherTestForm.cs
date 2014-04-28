@@ -16,6 +16,8 @@ namespace LibAnimaonline.Console
             InitializeComponent();
 
             Application.EnableVisualStyles();
+
+            propertyGrid1.SelectedObject = this;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -28,6 +30,8 @@ namespace LibAnimaonline.Console
         private void button2_Click(object sender, EventArgs e)
         {
             this.AcceptChanges();
+            Invalidate();
+            propertyGrid1.Refresh();
         }
     }
 }
