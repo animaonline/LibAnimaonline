@@ -33,6 +33,15 @@ public static class ObjectExtensions
     }
 
     /// <summary>
+    /// Frees used resources
+    /// </summary>
+    /// <param name="o"></param>
+    public static void DisposeChangeWatcher(this object o)
+    {
+        ChangeWatcher.Dispose(o);
+    }
+
+    /// <summary>
     /// Indicates whether this object has changed or not since AcceptChanges() was called.
     /// </summary>
     public static bool HasChanges(this object o)

@@ -30,6 +30,8 @@ namespace LibAnimaonline.Console
         private void button2_Click(object sender, EventArgs e)
         {
             this.AcceptChanges();
+            var c = this.GetChangedProperties();
+
             Invalidate();
             propertyGrid1.Refresh();
         }

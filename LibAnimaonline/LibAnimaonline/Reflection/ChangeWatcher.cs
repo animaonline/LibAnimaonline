@@ -36,7 +36,7 @@ namespace Animaonline.Reflection
 
         public class ChangeWatchAttribute : Attribute { }
 
-        public class ChangeWatchProperty
+        public class ChangeWatchProperty : IDisposable
         {
             #region Public Constructors
 
@@ -54,7 +54,7 @@ namespace Animaonline.Reflection
 
             #region Private Fields
 
-            private readonly object _owner;
+            private object _owner;
 
             #endregion
 
@@ -90,7 +90,7 @@ namespace Animaonline.Reflection
                 {
                     try
                     {
-                        if (CurrentValue == value)
+                        if (Property == null || CurrentValue == value)
                             return;
 
                         dynamic targetValue;
@@ -139,6 +139,13 @@ namespace Animaonline.Reflection
                 string currentString = CurrentValue == null ? "null" : CurrentValue.ToString();
 
                 return string.Format("{0} - (Previous: '{1}', Current: '{2}')", Property.Name, previousString, currentString);
+            }
+
+            public void Dispose()
+            {
+                _owner = null;
+                PreviousValue = null;
+                CurrentValue = null;
             }
 
             #endregion
@@ -239,8 +246,11 @@ namespace Animaonline.Reflection
                         //Get current value
                         var propertyValue = propertyInfo.GetValue(obj, null);
 
+                        var entry = ChangeCache[obj][propertyInfo];
+
                         //Update Cache
-                        ChangeCache[obj][propertyInfo].CurrentValue = propertyValue;
+                        entry.PreviousValue = propertyValue;
+                        entry.CurrentValue = propertyValue;
                     }
             }
 
@@ -304,5 +314,18 @@ namespace Animaonline.Reflection
         }
 
         #endregion
+
+        public static void Dispose(object o)
+        {
+            if (ChangeCache.ContainsKey(o))
+            {
+                var changesCache = ChangeCache[o];
+
+                ChangeCache.Remove(o);
+
+                foreach (var changeWatchProperty in changesCache)
+                    changeWatchProperty.Value.Dispose();
+            }
+        }
     }
 }

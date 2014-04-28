@@ -19,9 +19,25 @@ namespace LibAnimaonline.Console.Tests.Reflection
 
             var changedProperties = testTarget.GetChangedProperties();
 
+            testTarget.AcceptChanges();
+
+            testTarget.Set(1, 2, 3);
+
+            changedProperties = testTarget.GetChangedProperties();
+
+            testTarget.AcceptChanges();
+
+            testTarget.Set(4, 5, 6);
+
+            changedProperties = testTarget.GetChangedProperties();
+
             System.Console.WriteLine("Following properties have changed");
 
             changedProperties.ForEach(p => p.ToConsole());
+
+            testTarget.DisposeChangeWatcher();
+
+            /*----UI Test----*/
 
             var form = new ChangeWatcherTestForm();
 
