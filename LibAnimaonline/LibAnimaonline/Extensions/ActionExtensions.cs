@@ -51,4 +51,15 @@ public static class ActionExtensions
     }
 
     #endregion
+
+    public static Action Chain(this Action action, Action chainedAction)
+    {
+        var chained = new Action(() =>
+        {
+            action();
+            chainedAction();
+        });
+
+        return chained;
+    }
 }

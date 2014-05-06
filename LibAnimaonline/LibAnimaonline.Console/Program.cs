@@ -24,6 +24,7 @@ using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Web;
 using Animaonline.ILTools.vCLR;
 using Animaonline.Threading;
@@ -38,6 +39,7 @@ namespace LibAnimaonline.Console
     {
         static void Main(string[] args)
         {
+            return;
             ITest test;
 
             //test= new BlockingContextTest();
