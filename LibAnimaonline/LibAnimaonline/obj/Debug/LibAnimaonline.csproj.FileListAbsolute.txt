@@ -1,5 +1,4 @@
 C:\Users\Roman\Documents\GitHub\LibAnimaonline\LibAnimaonline\LibAnimaonline\bin\Debug\LibAnimaonline.dll
 C:\Users\Roman\Documents\GitHub\LibAnimaonline\LibAnimaonline\LibAnimaonline\bin\Debug\LibAnimaonline.pdb
-C:\Users\Roman\Documents\GitHub\LibAnimaonline\LibAnimaonline\LibAnimaonline\obj\Debug\LibAnimaonline.csprojResolveAssemblyReference.cache
 C:\Users\Roman\Documents\GitHub\LibAnimaonline\LibAnimaonline\LibAnimaonline\obj\Debug\LibAnimaonline.dll
 C:\Users\Roman\Documents\GitHub\LibAnimaonline\LibAnimaonline\LibAnimaonline\obj\Debug\LibAnimaonline.pdb

@@ -5,3 +5,5 @@ C:\Users\Roman\Documents\GitHub\LibAnimaonline\LibAnimaonline\LibAnimaonline.Con
 C:\Users\Roman\Documents\GitHub\LibAnimaonline\LibAnimaonline\LibAnimaonline.Console\bin\Release\LibAnimaonline.pdb
 C:\Users\Roman\Documents\GitHub\LibAnimaonline\LibAnimaonline\LibAnimaonline.Console\obj\Release\LibAnimaonline.Console.exe
 C:\Users\Roman\Documents\GitHub\LibAnimaonline\LibAnimaonline\LibAnimaonline.Console\obj\Release\LibAnimaonline.Console.pdb
+C:\Users\Roman\Documents\GitHub\LibAnimaonline\LibAnimaonline\LibAnimaonline.Console\obj\Release\LibAnimaonline.Console.ChangeWatcherTestForm.resources
+C:\Users\Roman\Documents\GitHub\LibAnimaonline\LibAnimaonline\LibAnimaonline.Console\obj\Release\LibAnimaonline.Console.csproj.GenerateResource.Cache
