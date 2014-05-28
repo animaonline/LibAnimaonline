@@ -44,9 +44,9 @@ public static class ObjectExtensions
     /// <summary>
     /// Indicates whether this object has changed or not since AcceptChanges() was called.
     /// </summary>
-    public static bool HasChanges(this object o)
+    public static bool HasChanges(this object o, Type requiredAttribute = null)
     {
-        return ChangeWatcher.HasChanges(o);
+        return ChangeWatcher.HasChanges(o, requiredAttribute);
     }
 
     /// <summary>

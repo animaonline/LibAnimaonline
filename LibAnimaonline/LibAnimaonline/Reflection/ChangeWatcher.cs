@@ -259,11 +259,11 @@ namespace Animaonline.Reflection
         /// <summary>
         /// Indicates whether this object has changed or not since AcceptChanges() was called.
         /// </summary>
-        public static bool HasChanges(object obj)
+        public static bool HasChanges(object obj, Type requiredAttribute = null)
         {
             lock (obj)
             {
-                var changes = GetChangedProperties(obj);
+                var changes = GetChangedProperties(obj, requiredAttribute);
 
                 return changes.Any();
             }
